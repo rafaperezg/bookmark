@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-xs-12">
+    <form (ng-submit)="onSubmit($event)")>
+
+      <mat-form-field>
+        <input type="text" matInput placeholder="Usuario" [formControl]="username" required>
+        <mat-error *ngIf="username.invalid">{{ getErrorMessageForUsername()}}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input type="password" matInput placeholder="Contraseña" [formControl]="password" required>
+        <mat-error *ngIf="password.invalid">{{ getErrorMessageForPassword()}}</mat-error>
+      </mat-form-field>
+
+    </form>
+  </div>
+</div>
