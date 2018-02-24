@@ -13,12 +13,12 @@ export class LoginComponent implements OnInit {
 
   constructor() { }
 
-  getErrorMessafeForUsername() {
+  getErrorMessageForUsername() {
     const hasError = this.username.hasError('required');
     return hasError ? 'Nombre de usuario es requerido' : '';
   }
 
-  getErrorMessafeForPassword() {
+  getErrorMessageForPassword() {
     const hasError = this.password.hasError('required');
     return hasError ? 'La contraseña es requerida' : '';
   }
