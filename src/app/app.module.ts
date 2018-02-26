@@ -2,12 +2,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { MatInputModule, MatTableModule } from '@angular/material';
 
-import { MatInputModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './common/header/header.component';
@@ -19,6 +20,10 @@ import { PublicGuard } from './common/guards/public.guard';
 import { AuthGuard } from './common/guards/auth.guard';
 import { AuthenticationService } from './common/services/authentication.service';
 import { Ng2Webstorage } from 'ngx-webstorage';
+import { BookmarksService } from './auth/bookmarks/services/bookmarks.service';
+
+import { TokenInterceptor } from './auth/interceptors/token.interceptor';
+import { BookmarksComponent } from './auth/bookmarks/bookmarks.component';
 
 
 @NgModule({
@@ -27,7 +32,8 @@ import { Ng2Webstorage } from 'ngx-webstorage';
     HeaderComponent,
     LoginComponent,
     HomeComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    BookmarksComponent
   ],
   imports: [
     // core
@@ -42,11 +48,18 @@ import { Ng2Webstorage } from 'ngx-webstorage';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    MatTableModule,
     // Custom
     Ng2Webstorage,
   ],
   providers: [
-    PublicGuard, AuthGuard, AuthenticationService
+    PublicGuard,
+    AuthGuard,
+    AuthenticationService,
+    BookmarksService,
+    {
+      provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
