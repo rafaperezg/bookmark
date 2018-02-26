@@ -7,7 +7,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule, MatTableModule } from '@angular/material';
+import { MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
 
 
 import { AppComponent } from './app.component';
@@ -49,6 +49,8 @@ import { BookmarksComponent } from './auth/bookmarks/bookmarks.component';
     MatFormFieldModule,
     MatInputModule,
     MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
     // Custom
     Ng2Webstorage,
   ],
