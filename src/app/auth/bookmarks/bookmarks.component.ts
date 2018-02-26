@@ -12,10 +12,16 @@ import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 export class BookmarksComponent implements OnInit {
 
   bookmarks: Array<Bookmark>;
-  displayedColumns = ['id', 'title', 'description', 'created'];
+  displayedColumns = ['id', 'title', 'description', 'created', 'actions'];
   dataSource;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+
+  // @Component({
+  //   selector: 'menu-icons-example',
+  //   templateUrl: 'menu-icons-example.html',
+  //   styleUrls: ['menu-icons-example.css'],
+  // })
 
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
@@ -26,11 +32,15 @@ export class BookmarksComponent implements OnInit {
   constructor(public bookmarksService: BookmarksService) {
   }
 
+  openBookmarkURL(bookmark: Bookmark) {
+    window.location.href = bookmark.url;
+  }
+
   ngOnInit() {
     this.bookmarksService.getAll().subscribe(
       (data: BookmarksResponse) => {
         this.bookmarks = data.bookmarks;
-        this.dataSource = new MatTableDataSource<Bookmark>( this.bookmarks );
+        this.dataSource = new MatTableDataSource<Bookmark>(this.bookmarks);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       },
