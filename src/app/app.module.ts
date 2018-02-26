@@ -24,6 +24,7 @@ import { BookmarksService } from './auth/bookmarks/services/bookmarks.service';
 
 import { TokenInterceptor } from './auth/interceptors/token.interceptor';
 import { BookmarksComponent } from './auth/bookmarks/bookmarks.component';
+import { WindowReferenceService } from './common/services/window-reference.service';
 
 
 @NgModule({
@@ -61,6 +62,7 @@ import { BookmarksComponent } from './auth/bookmarks/bookmarks.component';
     AuthGuard,
     AuthenticationService,
     BookmarksService,
+    WindowReferenceService,
     {
       provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true
     }

@@ -3,6 +3,7 @@ import { BookmarksService } from './services/bookmarks.service';
 import { Bookmark } from './models/bookmark.model';
 import { BookmarksResponse } from './models/bookmarks-response.model';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { WindowReferenceService } from '../../common/services/window-reference.service';
 
 @Component({
   selector: 'app-bookmarks',
@@ -16,6 +17,7 @@ export class BookmarksComponent implements OnInit {
   dataSource;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  nativeWindow: any;
 
   // @Component({
   //   selector: 'menu-icons-example',
@@ -29,11 +31,19 @@ export class BookmarksComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
-  constructor(public bookmarksService: BookmarksService) {
+  constructor(public bookmarksService: BookmarksService,
+              public _windowReference: WindowReferenceService ) {
+    this.nativeWindow = _windowReference.getNativeWindow();
   }
 
-  openBookmarkURL(bookmark: Bookmark) {
-    window.location.href = bookmark.url;
+  openBookmarkURL(bookmark: Bookmark, event: Event) {
+    event.preventDefault();
+
+    this.nativeWindow.open(bookmark.url);
+
+
+
+    // window.location.href = bookmark.url;
   }
 
   ngOnInit() {
