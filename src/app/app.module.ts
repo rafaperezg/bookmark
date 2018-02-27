@@ -8,7 +8,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatMenuModule, MatIconModule } from '@angular/material';
-import { MatDialogModule } from '@angular/material';
+import { MatDialogModule, MatPaginatorIntl } from '@angular/material';
 
 
 
@@ -29,6 +29,7 @@ import { BookmarksComponent } from './auth/bookmarks/bookmarks.component';
 import { WindowReferenceService } from './common/services/window-reference.service';
 import { EditBookmarkComponent } from './auth/bookmarks/edit-bookmark/edit-bookmark.component';
 import { ModalErrorLoginComponent } from './public/login/modal-error-login/modal-error-login.component';
+import { MatPaginatorIntlSpanishprovider } from './common/paginator/mat-paginator-intl-spanish-provider';
 
 
 @NgModule({
@@ -76,6 +77,9 @@ import { ModalErrorLoginComponent } from './public/login/modal-error-login/modal
     WindowReferenceService,
     {
       provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true
+    },
+    {
+      provide: MatPaginatorIntl, useClass: MatPaginatorIntlSpanishprovider
     }
   ],
   bootstrap: [AppComponent]

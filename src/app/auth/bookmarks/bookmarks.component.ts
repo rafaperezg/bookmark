@@ -20,6 +20,11 @@ export class BookmarksComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   nativeWindow: any;
 
+  // MatPaginator inputs
+  length = 50;
+  pageSize = 5;
+  pageSizeOptions = [5, 10, 20];
+
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
