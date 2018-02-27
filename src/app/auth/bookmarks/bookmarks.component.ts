@@ -54,6 +54,10 @@ export class BookmarksComponent implements OnInit {
       height: '400px',
       width: '600px'
     });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    });
   }
 
   ngOnInit() {

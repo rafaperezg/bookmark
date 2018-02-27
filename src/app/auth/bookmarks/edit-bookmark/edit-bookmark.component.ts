@@ -1,6 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { BookmarksService } from '../services/bookmarks.service';
+import { Bookmark } from '../models/bookmark.model';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -14,7 +17,8 @@ export class EditBookmarkComponent implements OnInit {
   title = new FormControl('', [Validators.required]);
   url = new FormControl('', [Validators.required, Validators.pattern(/$http|https:\/\/.*/)]);
 
-  constructor(public dialogRef: MatDialogRef<EditBookmarkComponent>,
+  constructor(public _bookmarksService: BookmarksService,
+    public dialogRef: MatDialogRef<EditBookmarkComponent>,
     @Inject(MAT_DIALOG_DATA) public bookmark: any) {
 
   }
@@ -35,7 +39,26 @@ export class EditBookmarkComponent implements OnInit {
     console.log(this.title.value, this.url.value);
     this.isBeingSave = true;
 
-    // @TOOD: Call to bookmarks' service
+    this._bookmarksService.update(this.bookmark).subscribe(
+      // Caso Next
+      (data: Bookmark) => {
+        console.log('Bookmar actualizado', data);
+        this.isBeingSave = false;
+        this.dialogRef.close();
+      },
+      // Caso error
+      (err: HttpErrorResponse) => {
+        if (err.error instanceof Error) {
+          console.log('Un error ha ocurrido', err.error.message);
+        } else {
+          console.log(`Backend ha regresado un error ${err.status}, body fue: ${err.error}`);
+        }
+      },
+      // Caso cuando acaboó todo
+      () => {
+        console.log('Todo ha terminado ...');
+      }
+    );
   }
 
 }
