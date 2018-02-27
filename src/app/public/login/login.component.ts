@@ -4,6 +4,8 @@ import { AuthenticationService } from '../../common/services/authentication.serv
 import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
 import { Router } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { MatDialog } from '@angular/material';
+import { ModalErrorLoginComponent } from './modal-error-login/modal-error-login.component';
 
 @Component({
   selector: 'app-login',
@@ -16,8 +18,9 @@ export class LoginComponent implements OnInit {
   password = new FormControl('', [Validators.required]);
 
   constructor(public authService: AuthenticationService,
-              public locker: SessionStorageService,
-              public router: Router) { }
+    public locker: SessionStorageService,
+    public router: Router,
+    public dialog: MatDialog) { }
 
   getErrorMessageForUsername() {
     const hasError = this.username.hasError('required');
@@ -27,6 +30,13 @@ export class LoginComponent implements OnInit {
   getErrorMessageForPassword() {
     const hasError = this.password.hasError('required');
     return hasError ? 'La contraseña es requerida' : '';
+  }
+
+  openDialogWithError() {
+    const dialogRef = this.dialog.open(ModalErrorLoginComponent, {
+      height: '200px',
+      width: '400px'
+    });
   }
 
   ngOnInit() {
@@ -45,6 +55,7 @@ export class LoginComponent implements OnInit {
       }, (error: HttpErrorResponse) => {
         if (error.status === 406) {
           console.error('Unable to login');
+          this.openDialogWithError();
         }
 
         console.error(error);

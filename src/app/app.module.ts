@@ -28,6 +28,7 @@ import { TokenInterceptor } from './auth/interceptors/token.interceptor';
 import { BookmarksComponent } from './auth/bookmarks/bookmarks.component';
 import { WindowReferenceService } from './common/services/window-reference.service';
 import { EditBookmarkComponent } from './auth/bookmarks/edit-bookmark/edit-bookmark.component';
+import { ModalErrorLoginComponent } from './public/login/modal-error-login/modal-error-login.component';
 
 
 @NgModule({
@@ -38,10 +39,12 @@ import { EditBookmarkComponent } from './auth/bookmarks/edit-bookmark/edit-bookm
     HomeComponent,
     NotFoundComponent,
     BookmarksComponent,
-    EditBookmarkComponent
+    EditBookmarkComponent,
+    ModalErrorLoginComponent
   ],
   entryComponents: [
-    EditBookmarkComponent
+    EditBookmarkComponent,
+    ModalErrorLoginComponent
   ],
   imports: [
     // core
