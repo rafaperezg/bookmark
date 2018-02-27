@@ -2,8 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { BookmarksService } from './services/bookmarks.service';
 import { Bookmark } from './models/bookmark.model';
 import { BookmarksResponse } from './models/bookmarks-response.model';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort, MatDialog } from '@angular/material';
 import { WindowReferenceService } from '../../common/services/window-reference.service';
+import { EditBookmarkComponent } from './edit-bookmark/edit-bookmark.component';
 
 @Component({
   selector: 'app-bookmarks',
@@ -19,12 +20,6 @@ export class BookmarksComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   nativeWindow: any;
 
-  // @Component({
-  //   selector: 'menu-icons-example',
-  //   templateUrl: 'menu-icons-example.html',
-  //   styleUrls: ['menu-icons-example.css'],
-  // })
-
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
@@ -32,18 +27,33 @@ export class BookmarksComponent implements OnInit {
   }
 
   constructor(public bookmarksService: BookmarksService,
-              public _windowReference: WindowReferenceService ) {
+    public _windowReference: WindowReferenceService,
+    public dialog: MatDialog) {
+
     this.nativeWindow = _windowReference.getNativeWindow();
+
   }
 
   openBookmarkURL(bookmark: Bookmark, event: Event) {
-    event.preventDefault();
 
+    event.preventDefault();
     this.nativeWindow.open(bookmark.url);
 
+  }
 
+  editBookmark(bookmark: Bookmark, event: Event) {
 
-    // window.location.href = bookmark.url;
+    event.preventDefault();
+    this.openDialogToEditBookmark(bookmark);
+
+  }
+
+  openDialogToEditBookmark(bookmark: Bookmark) {
+    const dialogRef = this.dialog.open(EditBookmarkComponent, {
+      data: bookmark,
+      height: '400px',
+      width: '600px'
+    });
   }
 
   ngOnInit() {

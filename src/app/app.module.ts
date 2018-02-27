@@ -8,6 +8,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatMenuModule, MatIconModule } from '@angular/material';
+import { MatDialogModule } from '@angular/material';
+
 
 
 import { AppComponent } from './app.component';
@@ -25,6 +27,7 @@ import { BookmarksService } from './auth/bookmarks/services/bookmarks.service';
 import { TokenInterceptor } from './auth/interceptors/token.interceptor';
 import { BookmarksComponent } from './auth/bookmarks/bookmarks.component';
 import { WindowReferenceService } from './common/services/window-reference.service';
+import { EditBookmarkComponent } from './auth/bookmarks/edit-bookmark/edit-bookmark.component';
 
 
 @NgModule({
@@ -34,7 +37,11 @@ import { WindowReferenceService } from './common/services/window-reference.servi
     LoginComponent,
     HomeComponent,
     NotFoundComponent,
-    BookmarksComponent
+    BookmarksComponent,
+    EditBookmarkComponent
+  ],
+  entryComponents: [
+    EditBookmarkComponent
   ],
   imports: [
     // core
@@ -54,6 +61,7 @@ import { WindowReferenceService } from './common/services/window-reference.servi
     MatSortModule,
     MatMenuModule,
     MatIconModule,
+    MatDialogModule,
     // Custom
     Ng2Webstorage,
   ],
