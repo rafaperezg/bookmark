@@ -30,6 +30,7 @@ import { WindowReferenceService } from './common/services/window-reference.servi
 import { EditBookmarkComponent } from './auth/bookmarks/edit-bookmark/edit-bookmark.component';
 import { ModalErrorLoginComponent } from './public/login/modal-error-login/modal-error-login.component';
 import { MatPaginatorIntlSpanishprovider } from './common/paginator/mat-paginator-intl-spanish-provider';
+import { CutStringInWordsPipe } from './common/pipes/cut-string-in-words.pipe';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { MatPaginatorIntlSpanishprovider } from './common/paginator/mat-paginato
     NotFoundComponent,
     BookmarksComponent,
     EditBookmarkComponent,
-    ModalErrorLoginComponent
+    ModalErrorLoginComponent,
+    CutStringInWordsPipe
   ],
   entryComponents: [
     EditBookmarkComponent,
